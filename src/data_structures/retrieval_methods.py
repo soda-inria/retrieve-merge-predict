@@ -2,13 +2,13 @@ import json
 from pathlib import Path
 from sys import getsizeof
 
-import lazo_index_service
+# import lazo_index_service
 import numpy as np
 import polars as pl
 import polars.selectors as cs
 from datasketch import LeanMinHash, MinHash, MinHashLSHEnsemble
 from joblib import Parallel, delayed, dump, load
-from lazo_index_service.errors import LazoError
+# from lazo_index_service.errors import LazoError
 from memory_profiler import profile
 from scipy.sparse import csr_array, load_npz, save_npz
 from sklearn.feature_extraction.text import CountVectorizer
@@ -712,7 +712,7 @@ class ExactMatchingIndex:
         )
         df_overlap = (
             df_overlap.with_columns(
-                pl.col("key").list.to_struct().struct.rename_fields(["hash", "col"])
+                pl.col("key").list.to_struct(fields=["hash", "col"])
             )
             .unnest("key")
             .sort("containment", descending=True)

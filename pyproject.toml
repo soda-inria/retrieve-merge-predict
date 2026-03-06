@@ -9,30 +9,28 @@ version = "0.5"
 requires-python = ">=3.10"
 dependencies = [
     "pip",
-    # "pandas==1.5.3",
-    # "numpy==1.24.3",
-    "woodwork==0.24.0",
-    # "scikit-learn==1.2.2",
-    "scipy==1.12.0",
-    "matplotlib==3.7.1",
-    "seaborn==0.12.2",
-    "gitpython==3.1.31",
-    "catboost==1.2",
-    "tqdm==4.65.0",
+    "pandas<3",
+    "woodwork",
+    "scipy>=1.12.0,<2",
+    "matplotlib>=3.7.1,<4",
+    "seaborn>=0.12.2,<1",
+    "gitpython>=3.1.31,<4",
+    "catboost>=1.2,<2",
+    "tqdm>=4.65.0,<5",
     "jupyter",
-    "featuretools==1.26.0",
-    "pyarrow==12.0",
-    "pre-commit==3.4.0",
+    "featuretools>=1.26.0,<2",
+    "pyarrow>=12.0",
+    "pre-commit>=3.4.0,<4",
     "toml",
-    "datasketch==1.5.9",
-    "chardet==3.0.4",
+    "datasketch>=1.5.9,<2",
+    "chardet>=3.0.4,<4",
     "protobuf==3.20.3",
-    "lazo-index-service>=0.7.0",
-    "memory-profiler==0.61.0",
-    "clevercsv==0.8.2",
-    "polars-lts-cpu>=1.6.0",
-    "skrub>=0.5.3",
-    "pytabkit>=1.0.0",
+    "lazo-index-service==0.7.0",
+    "memory-profiler>=0.61.0,<1",
+    "clevercsv>=0.8.2,<1",
+    "polars-lts-cpu>=1.6.0,<2",
+    "skrub>=0.5.3,<1",
+    "pytabkit>=1.0.0,<2",
 ]
 license = { file = "LICENSE" }
 
@@ -40,7 +38,8 @@ license = { file = "LICENSE" }
 Homepage = "https://rcap107.github.io/retrieve-merge-predict/"
 Repository = "https://github.com/rcap107/retrieve-merge-predict"
 
-[tool.uv]
+[tool.uv.extra-build-dependencies]
+pandas = ["pkg_resources"]
 
 [tool.pixi.workspace]
 channels = ["conda-forge"]
@@ -50,3 +49,7 @@ platforms = ["osx-arm64"]
 retrieve-merge-predict = { path = ".", editable = true }
 
 [tool.pixi.tasks]
+create-metadata = { cmd = "python main_metadata.py create-metadata", cwd = "."}
+prepare-retrieval = { cmd = "python main_metadata.py prepare-retrieval"}
+
+[tool.pixi.dependencies]
